@@ -1,0 +1,19 @@
+// KTDS QA Agent Workflow
+digraph {
+	rankdir=LR
+	agent [label="Agent
+(LLM)" shape=box]
+	search [label="Search
+(VectorDB)" shape=box]
+	check_relevance [label="Check
+Relevance" shape=diamond]
+	perplexity [label="Perplexity
+Search" shape=box]
+	END [label=END shape=doublecircle]
+	agent -> search [label=has_tool_calls]
+	agent -> END [label=no_tool_calls]
+	search -> check_relevance
+	check_relevance -> perplexity [label=not_relevant]
+	check_relevance -> END [label=relevant]
+	perplexity -> agent
+}
